@@ -1,0 +1,10 @@
+C:\Users\Solom\OneDrive - University of Birmingham\Desktop\Arduino Code\macro_pad\desktop_rust\target\debug\deps\serialport-e3a3303062f09ef6.rmeta: C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\lib.rs C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\mod.rs C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\com.rs C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\dcb.rs C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\enumerate.rs C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\error.rs
+
+C:\Users\Solom\OneDrive - University of Birmingham\Desktop\Arduino Code\macro_pad\desktop_rust\target\debug\deps\serialport-e3a3303062f09ef6.d: C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\lib.rs C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\mod.rs C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\com.rs C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\dcb.rs C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\enumerate.rs C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\error.rs
+
+C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\lib.rs:
+C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\mod.rs:
+C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\com.rs:
+C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\dcb.rs:
+C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\enumerate.rs:
+C:\Users\Solom\.cargo\registry\src\github.com-1ecc6299db9ec823\serialport-4.2.1\src\windows\error.rs:
