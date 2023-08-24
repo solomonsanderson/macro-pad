@@ -2,7 +2,7 @@
 #include <Adafruit_PCF8591.h>
 
 
-#define PIN            15
+#define PIN            2
 #define NUMPIXELS      8
 #define ADC_REFERENCE_VOLTAGE 5.0
 
@@ -33,7 +33,7 @@ void loop() {
     Serial.println(red_pot_val);
     Serial.print("green");
     Serial.println(grn_pot_val);
-    pixels.setPixelColor(i, pixels.Color(red_pot_val, 0, 0)); // Moderately bright green color.
+    pixels.setPixelColor(i, pixels.Color(100, 0, 0)); // Moderately bright green color.
     pixels.show(); // This sends the updated pixel color to the hardware.
     delay(100); // Delay for a peri vod of time (in milliseconds).
   }

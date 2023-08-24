@@ -12,11 +12,14 @@ Adafruit_NeoPixel led_strip = Adafruit_NeoPixel(8, LED_STRIP, NEO_GRB + NEO_KHZ8
 Adafruit_PCF8591 adc = Adafruit_PCF8591();
 Adafruit_NeoKey_1x4 neokey;
 
+uint32_t full_blue =  0x0000FF;
+uint16_t key = 1;
+
 
 int slide_0;
 int slide_1;
 
-int red = 255;
+int red = 50;
 int green = 0;
 int blue = 0;
 
@@ -50,6 +53,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   uint8_t keys = neokey.read();
+  neokey.pixels.setPixelColor(key, full_blue);
   // Serial.println(keys);
 
   int key_nums[] = {1, 2, 4, 8, 3, 5, 9, 6, 10, 12, 7, 14, 13, 11, 15};
@@ -71,10 +75,11 @@ void loop() {
 
   // set led strip color
   for (int pixel = 0; pixel < 9; pixel++){
-    led_strip.setPixelColor(pixel, (red, green, blue));
+    led_strip.setPixelColor(pixel, led_strip.Color(red, green, blue));
     led_strip.show();
-  }
+    }
 
+  
   curr_clk = digitalRead(CLK);
 
   if (curr_clk != prev_clk && curr_clk == 1){
