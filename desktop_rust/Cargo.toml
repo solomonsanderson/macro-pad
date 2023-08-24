@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 serialport = "4.2.1"
+souvlaki = "0.6.1"
+raw-window-handle = "0.5.2"
