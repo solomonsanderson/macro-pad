@@ -1,71 +1,63 @@
 use std::str;
 use std::time::Duration;
+use std::io::{BufRead, BufReader, Read};
 
-use souvlaki::MediaControls;
-use souvlaki::PlatformConfig;
-use souvlaki::MediaControlEvent;
-use souvlaki::MediaMetadata;
+use serde_json;
 
-use raw_window_handle;
+// use souvlaki::MediaControls;
+// use souvlaki::PlatformConfig;
+// use souvlaki::MediaControlEvent;
+// use souvlaki::MediaMetadata;
 
-fn macro_finder() {
+// use egui;
 
-    let ports = serialport::available_ports().expect("No ports found!");
+// use raw_window_handle;
 
-    for port in ports {
-        println!("{}", port.port_name);
-        let mut test_port = serialport::new(port.port_name, 9600).open().expect("Failed to open port");
-        let command = "serial";
-        let timeout = Duration::new(1, 0);
-        test_port.set_timeout(timeout).expect("write failed");
-        test_port.write(command.as_bytes()).expect("write failed");
-
-        for i in 0..10 {
-            println!("{:?}",i);
-            // let mut serial_buf: Vec<u32> = vec![0; 32];
-            // let result = test_port.read_to_string(serial_buf.as_mut_slice());
-            // let result_str = str::from_utf8(&serial_buf).unwrap();
-
-            let mut buffer = String::new();
-
-            let result_str = test_port.read_to_string(&mut buffer);
-            println!("{:?}", result_str.to_string().as_str().trim());
-            // let result_str = "serial";
-            // if result_str.contains(command){
-            //     let connect_status = true;
-            // } else {
-            //     let connect_status = false;
-            // }
-            
-        }
-        
-        
-        
-    }
+fn read_json(in_str: &str) -> (String, i32, i32, i32, i32) {
+    // takes an input string in json format and reads
+    let out: serde_json::Value = serde_json::from_str(in_str).expect("Check JSON Format!");
+    let keys: String = out["keys"].to_string();
+    let rot_sw:i32 = out["rot_sw"].to_string().parse::<i32>().unwrap();
+    let slide_0: i32 = out["slide_0"].to_string().parse::<i32>().unwrap();
+    let slide_1: i32 = out["slide_1"].to_string().parse::<i32>().unwrap();
+    let rot_count: i32 = out["rot_count"].to_string().parse::<i32>().unwrap();
+    return (keys, rot_sw, slide_0, slide_1, rot_count)
 }
 
+fn json_to_cmd(input: (String, i32, i32, i32, i32)) {
+    // takes the json and uses the information to execute functions
+    if input.0.contains("A"){
+        println!("A pressed");
+        // call some function here and for other keys 
+    }
+    if input.0.contains("B"){
+        println!("A pressed");
+    }
+    if input.0.contains("C"){
+        println!("A pressed");
+    }
+    if input.0.contains("D"){
+        println!("A pressed");
+    }
 
 
-// fn media_ctrl() {
-//     #[cfg(not(target_os = "windows"))]
-//     let hwnd = None;
-//     #[cfg(target_os = "windows")]
-//     let hwnd = {
-//         use raw_window_handle::Win32WindowHandle;
-//         let handle: Win32WindowHandle = unimplemented!();
-//         Some(handle.hwnd)
-//     };
-//     let config = PlatformConfig {
-//         dbus_name: "my_player",
-//         display_name: "My Player",
-//         hwnd,
-//     };
-
-//     let mut controls = MediaControls::new(config).unwrap();
-//     controls.set_playback(souvlaki::MediaPlayback::Playing{progress: None});
-// }
+}
 
 fn main() {
-    // media_ctrl();
-    macro_finder();
+    let port = serialport::new("COM8", 115_200)
+        .timeout(Duration::from_millis(6000))
+        .open()
+        .expect("Device not found!!");
+
+    let mut port = BufReader::new(port);
+    let mut line_buffer = String::new();
+
+
+    loop {
+        line_buffer.clear();
+        port.read_line(&mut line_buffer).expect("Read failed!");
+        print!("{}", line_buffer);
+        let out = read_json(&line_buffer); 
+
+    }
 }
