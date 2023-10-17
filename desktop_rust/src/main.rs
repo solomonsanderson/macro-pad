@@ -1,8 +1,10 @@
-use std::str;
+use std::{str, thread, time};
 use std::time::Duration;
-use std::io::{BufRead, BufReader, Read};
+use std::io::{BufRead, BufReader, Read,};
 
 use serde_json;
+use rdev;
+
 
 // use souvlaki::MediaControls;
 // use souvlaki::PlatformConfig;
@@ -12,6 +14,15 @@ use serde_json;
 // use egui;
 
 // use raw_window_handle;
+
+fn send(event_type: &rdev::EventType){
+    match rdev::simulate(event_type){
+        Ok(()) => (),
+        Err(SimulateError) => {
+            println!("We could not send {:?}", event_type);
+        }
+    }
+}
 
 fn read_json(in_str: &str) -> (String, i32, i32, i32, i32) {
     // takes an input string in json format and reads
@@ -28,16 +39,19 @@ fn json_to_cmd(input: (String, i32, i32, i32, i32)) {
     // takes the json and uses the information to execute functions
     if input.0.contains("A"){
         println!("A pressed");
+        send(&rdev::EventType::KeyPress(rdev::Key::Function));
+        send(&rdev::EventType::KeyPress(rdev::Key::F6));
+        send(&rdev::EventType::KeyRelease(rdev::Key::Function));
         // call some function here and for other keys 
     }
     if input.0.contains("B"){
-        println!("A pressed");
+        println!("B pressed");
     }
     if input.0.contains("C"){
-        println!("A pressed");
+        println!("C pressed");
     }
     if input.0.contains("D"){
-        println!("A pressed");
+        println!("D pressed");
     }
 
 
@@ -56,8 +70,10 @@ fn main() {
     loop {
         line_buffer.clear();
         port.read_line(&mut line_buffer).expect("Read failed!");
-        print!("{}", line_buffer);
-        let out = read_json(&line_buffer); 
-
+        // let line_buffer: &str = r#"{"keys":"ABCD", "slide_0": 102, "slide_1": 201, "rot_count":100,"rot_sw": 1}"#;
+        // print!("{}", line_buffer);
+        let json_out = read_json(&line_buffer); 
+        json_to_cmd(json_out);
+        thread::sleep(time::Duration::from_millis(1000));
     }
 }

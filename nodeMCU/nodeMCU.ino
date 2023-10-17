@@ -19,9 +19,9 @@ uint16_t key = 1;
 int slide_0;
 int slide_1;
 
-int red = 50;
-int green = 0;
-int blue = 0;
+int red = 3;
+int green = 252;
+int blue = 232;
 
 int rot_count = 0;
 int curr_clk;
@@ -70,8 +70,8 @@ void loop() {
   // Serial.println(keys_index);
   
   // reading slide pots
-  // slide_0 = adc.analogRead(0);  
-  // slide_1 = adc.analogRead(1);
+  slide_0 = adc.analogRead(0);  
+  slide_1 = adc.analogRead(1);
 
   // set led strip color
   for (int pixel = 0; pixel < 9; pixel++){
@@ -94,16 +94,16 @@ void loop() {
 
   rot_sw = digitalRead(SW);
   
-  Serial.print("{ keys: ");
+  Serial.print("{keys: ");
   Serial.print(num_vals[keys_index]);
-  Serial.print(", slide_0:");
+  Serial.print(",slide_0:");
   Serial.print(slide_0);
-  Serial.print(", slide_1:");
+  Serial.print(",slide_1:");
   Serial.print(slide_1);
-  Serial.print(", rot_count:");
+  Serial.print(",rot_count:");
   Serial.print(rot_count);
-  Serial.print(", rot_sw:");
+  Serial.print(",rot_sw:");
   Serial.print(rot_sw);
   Serial.println("}");
-
+  // delay(1000);
 }
