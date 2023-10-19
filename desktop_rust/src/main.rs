@@ -6,7 +6,7 @@ use serde_json;
 use rdev;
 
 
-// use souvlaki::MediaControls;
+use souvlaki::MediaControls;
 // use souvlaki::PlatformConfig;
 // use souvlaki::MediaControlEvent;
 // use souvlaki::MediaMetadata;
@@ -39,19 +39,27 @@ fn json_to_cmd(input: (String, i32, i32, i32, i32)) {
     // takes the json and uses the information to execute functions
     if input.0.contains("A"){
         println!("A pressed");
-        send(&rdev::EventType::KeyPress(rdev::Key::Function));
-        send(&rdev::EventType::KeyPress(rdev::Key::F6));
-        send(&rdev::EventType::KeyRelease(rdev::Key::Function));
+        // send(&rdev::EventType::KeyPress(rdev::Key::Function));
+        send(&rdev::EventType::KeyPress(rdev::Key::KeyA));
+        // send(&rdev::EventType::KeyRelease(rdev::Key::Function));
+        // MediaControls::set_playback(&mut self, souvlaki::MediaPlayback::Stopped);
         // call some function here and for other keys 
     }
     if input.0.contains("B"){
         println!("B pressed");
+        send(&rdev::EventType::KeyPress(rdev::Key::KeyB));
+
+
     }
     if input.0.contains("C"){
         println!("C pressed");
+        send(&rdev::EventType::KeyPress(rdev::Key::KeyC));
+
     }
     if input.0.contains("D"){
         println!("D pressed");
+        send(&rdev::EventType::KeyPress(rdev::Key::KeyD));
+
     }
 
 
@@ -69,11 +77,13 @@ fn main() {
 
     loop {
         line_buffer.clear();
+        print!("{}", "buf clear");
         port.read_line(&mut line_buffer).expect("Read failed!");
         // let line_buffer: &str = r#"{"keys":"ABCD", "slide_0": 102, "slide_1": 201, "rot_count":100,"rot_sw": 1}"#;
-        // print!("{}", line_buffer);
-        let json_out = read_json(&line_buffer); 
-        json_to_cmd(json_out);
-        thread::sleep(time::Duration::from_millis(1000));
+        println!("{}", line_buffer);
+        
+        // let json_out = read_json(&line_buffer); 
+        // json_to_cmd(json_out);
+        // thread::sleep(time::Duration::from_millis(1000));
     }
 }

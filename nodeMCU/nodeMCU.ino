@@ -1,6 +1,7 @@
 #include "Adafruit_NeoKey_1x4.h"
 #include <Adafruit_NeoPixel.h>
 #include <Adafruit_PCF8591.h>
+#include <ArduinoJson.h>
 
 #define LED_STRIP 2
 
@@ -31,9 +32,12 @@ int rot_sw;
 
 int keys_index;
 
+StaticJsonDocument<200> doc;
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
+  
   led_strip.begin();
   led_strip.show();
   if (!adc.begin()){
@@ -66,12 +70,20 @@ void loop() {
      break;
     }
   } 
-  
+  if (String(num_vals[keys_index]) == ""){
+    doc["keys"] = "None";
+  } else {
+    doc["keys"] = String(num_vals[keys_index]);
+  }
+
   // Serial.println(keys_index);
   
   // reading slide pots
   slide_0 = adc.analogRead(0);  
   slide_1 = adc.analogRead(1);
+
+  doc["slide_0"] = slide_0;
+  doc["slide_1"] = slide_0;
 
   // set led strip color
   for (int pixel = 0; pixel < 9; pixel++){
@@ -92,18 +104,22 @@ void loop() {
   }
   prev_clk = curr_clk;
 
+  doc["rot_count"] = rot_count;
   rot_sw = digitalRead(SW);
-  
-  Serial.print("{keys: ");
-  Serial.print(num_vals[keys_index]);
-  Serial.print(",slide_0:");
-  Serial.print(slide_0);
-  Serial.print(",slide_1:");
-  Serial.print(slide_1);
-  Serial.print(",rot_count:");
-  Serial.print(rot_count);
-  Serial.print(",rot_sw:");
-  Serial.print(rot_sw);
-  Serial.println("}");
+  doc["rot_sw"] = rot_sw;
+
+
+  // Serial.print("{\"keys\":");
+  // Serial.print(num_vals[keys_index]);
+  // Serial.print(",\"slide_0\":");
+  // Serial.print(slide_0);
+  // Serial.print(",\"slide_1\":");
+  // Serial.print(slide_1);
+  // Serial.print(",\"rot_count\":");
+  // Serial.print(rot_count);
+  // Serial.print(",\"rot_sw\":");
+  // Serial.print(rot_sw);
+  // Serial.println("}");
   // delay(1000);
+  serializeJsonPretty(doc, Serial);
 }
