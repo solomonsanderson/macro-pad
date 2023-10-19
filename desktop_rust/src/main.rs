@@ -82,8 +82,8 @@ fn main() {
         // let line_buffer: &str = r#"{"keys":"ABCD", "slide_0": 102, "slide_1": 201, "rot_count":100,"rot_sw": 1}"#;
         println!("{}", line_buffer);
         
-        // let json_out = read_json(&line_buffer); 
-        // json_to_cmd(json_out);
+        let json_out = read_json(&line_buffer); 
+        json_to_cmd(json_out);
         // thread::sleep(time::Duration::from_millis(1000));
     }
 }
